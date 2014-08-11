@@ -8,4 +8,5 @@ def main():
 
     columns = read('/home/tlevine/csv-files/https/data.cityofnewyork.us/resource/feu5-w2e2.csv')
     for name, values in columns.items():
-        writer.writerow((name, is_name(values)))
+        result = 'name' in name.lower() and is_name(values)
+        writer.writerow((name, result))
