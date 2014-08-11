@@ -13,13 +13,13 @@ def is_name(column):
     for cell in column:
         if is_none(cell):
             nones += 1
-        elif contains_common_surname(cell) and nword(cell) <= 3 and not hasdigits(cell):
+        elif nword(cell) <= 3 and not hasdigits(cell) and contains_common_surname(cell):
             names += 1
         else:
             others += 1
     return names > others
 
-def _load_names(fn)
+def _load_names(fn):
     'http://www.census.gov/genealogy/www/data/2000surnames/index.html'
     with open(fn) as fp:
         reader = csv.reader(fp)
@@ -27,14 +27,14 @@ def _load_names(fn)
         for row in reader:
             yield row[0].lower()
 
-NAMES = list(_load_names('/home/tlevine/git/namamamonom/data/app_c.csv'))
+NAMES = set(_load_names('/home/tlevine/git/namamamonom/data/app_c.csv'))
 
 def is_none(text):
     return text.strip().lower() in {'', 'na', 'none'}
 
 def contains_common_surname(text):
-    for name in NAMES:
-        if name in text.lower():
+    for name in text.lower().strip().split():
+        if name in NAMES:
             return True
     else:
         return False
