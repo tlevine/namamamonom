@@ -13,11 +13,11 @@ def is_name(column):
     for cell in column:
         if is_none(cell):
             nones += 1
-        elif nword(cell) <= 3 and not hasdigits(cell) and contains_common_surname(cell):
+        elif nword(cell) <= 3 and not hasdigits(cell) and contains_common_surname(cell) and len(cell) > 2:
             names += 1
         else:
             others += 1
-    return names > others
+    return others <3 * names
 
 def _load_names(fn):
     'http://www.census.gov/genealogy/www/data/2000surnames/index.html'
